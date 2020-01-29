@@ -8,6 +8,7 @@ SRC_URI = " \
 	git://github.com/murata-wireless/cyw-fmac-nvram;protocol=http;branch=manda;destsuffix=cyw-fmac-nvram \
 	git://github.com/murata-wireless/cyw-bt-patch;protocol=http;branch=sumo-manda;destsuffix=cyw-bt-patch \
 	git://github.com/murata-wireless/cyw-fmac-utils-imx32;protocol=http;branch=manda;destsuffix=cyw-fmac-utils-imx32 \
+	git://github.com/murata-wireless/cyw-fmac-utils-imx64;protocol=http;branch=manda;destsuffix=cyw-fmac-utils-imx64 \
 	file://10-network.rules \
 "
 
@@ -15,6 +16,7 @@ SRCREV_cyw-fmac-fw="c5872f0b8cf7bfb0335ee2c293b552d3d7da931e"
 SRCREV_cyw-fmac-nvram="aec2050ba41e007480fc509d4acdfd204d1a248d"
 SRCREV_cyw-bt-patch="19c6747c2c399177a94cd5febd288d85e48ef3a4"
 SRCREV_cyw-fmac-utils-imx32="b1cbd9170dd96ac73102aeee5d73b11575e1028a"
+SRCREV_cyw-fmac-utils-imx64="6848dc6c805a29ff2a297d99557b8c875342cd57"
 
 SRCREV_default = "${AUTOREV}"
 
@@ -40,6 +42,10 @@ do_compile () {
 PACKAGES_prepend = "murata-binaries-wlarm "
 FILES_murata-binaries-wlarm = "${bindir}/wlarm"
 
+DO_INSTALL_64BIT_BINARIES = "no"
+DO_INSTALL_64BIT_BINARIES_mx6 = "no"
+DO_INSTALL_64BIT_BINARIES_mx7 = "no"
+DO_INSTALL_64BIT_BINARIES_mx8 = "yes"
 
 do_install () {
 	echo "Installing: "
@@ -97,7 +103,11 @@ do_install () {
 	install -m 444 ${S}/10-network.rules                  ${D}${sysconfdir}/udev/rules.d/10-network.rules
 
 #       Copying wl tool binary to /usr/sbin
-	install -m 755 ${S}/cyw-fmac-utils-imx32/wl ${D}/usr/sbin/wl
+	if [ ${DO_INSTALL_64BIT_BINARIES} = "yes" ]; then
+		install -m 755 ${S}/cyw-fmac-utils-imx64/wl ${D}/usr/sbin/wl
+	else
+		install -m 755 ${S}/cyw-fmac-utils-imx32/wl ${D}/usr/sbin/wl
+	fi
 }
 
 PACKAGES =+ "${PN}-mfgtest"
