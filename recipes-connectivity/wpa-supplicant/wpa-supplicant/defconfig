@@ -12,8 +12,8 @@
 
 # Uncomment following two lines and fix the paths if you have installed OpenSSL
 # or GnuTLS in non-default location
-CFLAGS += -I/usr/local/openssl/include
-LIBS += -L/usr/local/openssl/lib
+#CFLAGS += -I/usr/local/openssl/include
+#LIBS += -L/usr/local/openssl/lib
 
 # Some Red Hat versions seem to include kerberos header files from OpenSSL, but
 # the kerberos files are not in the default include path. Following line can be
