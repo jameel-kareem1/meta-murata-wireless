@@ -23,6 +23,7 @@ SRC_URI = "http://w1.fi/releases/wpa_supplicant-${PV}.tar.gz  \
            file://wpa-supplicant.sh \
            file://wpa_supplicant.conf \
            file://wpa_supplicant.conf-sane \
+           file://99_wpa_supplicant \
 	   file://0001-wpa_supplicant-Support-4-way-handshake-offload-for-F.patch;apply=yes \
 	   file://0002-wpa_supplicant-Notify-Neighbor-Report-for-driver-tri.patch;apply=yes \
 	   file://0003-nl80211-Report-connection-authorized-in-EVENT_ASSOC.patch;apply=yes \
