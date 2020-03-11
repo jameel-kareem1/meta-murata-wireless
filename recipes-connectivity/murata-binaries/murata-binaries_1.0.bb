@@ -82,11 +82,11 @@ do_install () {
 
 
 #       Rename clm blob files accordingly
-	install -m 444 ${S}/cyw-fmac-fw/brcmfmac4354-sdio.1BB.clm_blob ${D}/lib/firmware/brcm/brcmfmac4354-sdio.clm_blob
+	install -m 444 ${S}/cyw-fmac-fw/brcmfmac4354-sdio.clm_blob ${D}/lib/firmware/brcm/brcmfmac4354-sdio.clm_blob
 	install -m 444 ${S}/cyw-fmac-fw/brcmfmac4356-pcie.1CX.clm_blob ${D}/lib/firmware/brcm/brcmfmac4356-pcie.clm_blob
 	install -m 444 ${S}/cyw-fmac-fw/brcmfmac43012-sdio.1LV.clm_blob ${D}/lib/firmware/brcm/brcmfmac43012-sdio.clm_blob
 	install -m 444 ${S}/cyw-fmac-fw/brcmfmac43430-sdio.1DX.clm_blob ${D}/lib/firmware/brcm/brcmfmac43430-sdio.clm_blob
-	install -m 444 ${S}/cyw-fmac-fw/brcmfmac43455-sdio.1HK.clm_blob ${D}/lib/firmware/brcm/brcmfmac43455-sdio.clm_blob
+	install -m 444 ${S}/cyw-fmac-fw/brcmfmac43455-sdio.1MW.clm_blob ${D}/lib/firmware/brcm/brcmfmac43455-sdio.clm_blob
 	
 #       Copying NVRAM files (*.txt) to lib/firmware/brcm and lib/firmware/brcm/murata-master
 	install -m 444 ${S}/cyw-fmac-nvram/*.txt ${D}/lib/firmware/brcm/murata-master
