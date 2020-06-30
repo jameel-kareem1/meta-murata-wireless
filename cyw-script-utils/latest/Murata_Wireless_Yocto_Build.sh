@@ -3541,8 +3541,7 @@ if [ "$REPLY" = "y" ] || [ "$REPLY" = "Y" ] || [ "$REPLY" = "" ]; then
 		#TARGET_NAME=imx8mqevk => rocko-mini-manda
 		#if [ "$FMAC_VERSION" = $MANDA_FMAC_INDEX ] && [ "$iMXYoctoRelease" = "$imxrockominiYocto" ]; then
 		if [ "$iMXYoctoRelease" = "$imxrockominiYocto" ]; then
-			if [ "$iMXYoctoRelease" = "$MANDA_FMAC_INDEX" ] || [ "$iMXYoctoRelease" = "$KONG_FMAC_INDEX" ]; then
-
+			if [ "$FMAC_VERSION" = "$MANDA_FMAC_INDEX" ] || [ "$FMAC_VERSION" = "$KONG_FMAC_INDEX" ]; then
 				#echo "DEBUG:: MANDA-LOADING-FOR-ROCKO-MINI"
 				if [ "$TARGET_NAME" = "imx8mqevk" ] || [ "$TARGET_NAME" = "imx8qmmek" ] || [ "$TARGET_NAME" = "imx8mqevk" ] || [ "$TARGET_NAME" = "imx8mmevk" ]; then
 					#echo "DEBUG FOR IMX8-rocko-mini: COPYING IMX8 BACKPORTS, Murata-Binaries and bbx files"
