@@ -4,11 +4,17 @@ DESCRIPTION = "Cypress FMAC backport"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://${WORKDIR}/LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
-SRC_URI =  "https://github.com/jameel-kareem1/cyw-fmac/raw/imx-zeus-zigra/imx-zeus-zigra_r${PV}.tar.gz;name=archive1"
-SRC_URI += "https://github.com/jameel-kareem1/meta-murata-wireless/raw/imx-zeus-zigra/LICENSE;name=archive99"
+#SRC_URI =  "https://github.com/murata-wireless/cyw-fmac/raw/imx-morty-manda/imx-morty-manda_r${PV}.tar.gz;name=archive1"
 
-SRC_URI[archive1.md5sum] = "befb4b7eee93bd302b0763c008800d0c"
-SRC_URI[archive1.sha256sum] = "60dd0ced9469adb1d496525f1624441fbc234d12472b614decdca9f5c8814bf7"
+SRC_URI =  "https://github.com/jameel-kareem1/cyw-fmac/raw/imx-zeus-zigra/imx-zigra-zeus_r${PV}.tar.gz;name=archive1"
+SRC_URI += "https://github.com/murata-wireless/meta-murata-wireless/raw/imx-morty-manda/LICENSE;name=archive99"
+#SRC_URI += "file://0001-murata-customization-version-update.patch;patchdir=${WORKDIR}/imx-morty-manda_r${PV}"
+#SRC_URI += "file://0002-brcmfmac-fix-4339-CRC-error-under-SDIO-3.0-SDR104-mo-updated.patch;patchdir=${WORKDIR}/imx-morty-manda_r${PV}"
+#SRC_URI += "file://0003-murata-rx-transmit-max-perf.patch;patchdir=${WORKDIR}/imx-morty-manda_r${PV}"
+#SRC_URI += "file://0004-murata-1FD-initialization-fix.patch;patchdir=${WORKDIR}/imx-morty-manda_r${PV}"
+
+SRC_URI[archive1.md5sum] = "1ea88f37a16aa052862c5e85f52cfe44"
+SRC_URI[archive1.sha256sum] = "5455b8861c58211b77ba0b9810944197e43e3e604da1c879841f7a6a76c20ff6"
 
 
 #LICENSE
