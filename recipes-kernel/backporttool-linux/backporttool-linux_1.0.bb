@@ -1,55 +1,82 @@
 SUMMARY = "Cypress FMAC backport"
-DESCRIPTION = "Cypress FMAC Wi-Fi driver backport recipe"
-HOMEPAGE = "https://github.com/murata-wireless"
-SECTION = "kernel/modules"
+DESCRIPTION = "Cypress FMAC backport"
+
 LICENSE = "GPLv2"
+LIC_FILES_CHKSUM = "file://${WORKDIR}/LICENSE;md5=b234ee4d69f5fce4486a80fdaf4a4263"
+
+SRC_URI =  "https://github.com/jameel-kareem1/cyw-fmac/raw/imx-zeus-zigra/imx-zeus-zigra_r${PV}.tar.gz;name=archive1"
+SRC_URI += "https://github.com/jameel-kareem1/meta-murata-wireless/raw/imx-zeus-zigra/LICENSE;name=archive99"
+
+SRC_URI[archive1.md5sum] = "befb4b7eee93bd302b0763c008800d0c"
+SRC_URI[archive1.sha256sum] = "60dd0ced9469adb1d496525f1624441fbc234d12472b614decdca9f5c8814bf7"
 
 
-LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
-SRC_URI =  "git://github.com/jameel-kareem1/cyw-fmac;protocol=http;branch=imx-zeus-zigra"
-SRCREV = "75bb72e003a5a4d9ea120cac4ea0317c262c421f"
-S = "${WORKDIR}/git"
+#LICENSE
+SRC_URI[archive99.md5sum] = "b234ee4d69f5fce4486a80fdaf4a4263"
+SRC_URI[archive99.sha256sum] = "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
 
+inherit linux-kernel-base kernel-arch
 
-EXTRA_OEMAKE = "KLIB_BUILD=${STAGING_KERNEL_DIR} KLIB=${D} DESTDIR=${D}"
+DEPENDS = " linux-imx"
+DEPENDS += " backporttool-native"
 
-DEPENDS += "virtual/kernel"
+#Added to make it to work for core-image-base
 inherit module-base
 addtask make_scripts after do_patch before do_configure
 do_make_scripts[lockfiles] = "${TMPDIR}/kernel-scripts.lock"
 do_make_scripts[deptask] = "do_populate_sysroot"
 
-do_configure_prepend() {
-	cp ${STAGING_KERNEL_BUILDDIR}/.config ${STAGING_KERNEL_DIR}/.config
-	CC=${BUILD_CC} oe_runmake defconfig-brcmfmac
-}
+S = "${WORKDIR}/backporttool-linux-${PV}"
+B = "${WORKDIR}/backporttool-linux-${PV}/"
 
-do_configure_append() {
-	oe_runmake	
-}
+#You should set variable CROSS_COMPILE, not a CROSS-COMPILE
+export CROSS_COMPILE = "${TARGET_PREFIX}"
 
-
-FILES_${PN} += "${nonarch_base_libdir}/udev \
-                ${sysconfdir}/udev \
-				${nonarch_base_libdir} \
-               "
+KERNEL_VERSION = "${@base_read_file('${STAGING_KERNEL_BUILDDIR}/kernel-abiversion')}"
 
 do_compile() {
-	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
-	oe_runmake KERNEL_PATH=${STAGING_KERNEL_DIR}   \
-		   KERNEL_SRC=${STAGING_KERNEL_DIR}    \
-		   KERNEL_VERSION=${KERNEL_VERSION}    \
-		   CC="${KERNEL_CC}" LD="${KERNEL_LD}" \
-		   AR="${KERNEL_AR}" \
-		   ${MAKE_TARGETS}
+	# Linux kernel build system is expected to do the right thing
+	# unset CFLAGS
+        echo "TEST_CROSS_COMPILE:: ${CROSS_COMPILE}"
+        echo "TEST_CROSSCOMPILE:: ${CROSSCOMPILE}"          
+        echo "TEST_TARGET_PREFIX:: ${TARGET_PREFIX}"      
+        echo "TEST_ARCH:: ${ARCH}"
+        echo "TEST_TARGET_ARCH:: ${TARGET_ARCH}"
+        echo "STAGING_KERNEL_BUILDDIR: ${STAGING_KERNEL_BUILDDIR}"
+        echo "TEST_LDFLAGS:: ${LDFLAGS}"
+        echo "S DIR:  {S}"
+
+	cp ${STAGING_KERNEL_BUILDDIR}/.config ${STAGING_KERNEL_DIR}/.config
+	cp ${STAGING_KERNEL_BUILDDIR}/kernel-abiversion ${STAGING_KERNEL_DIR}/kernel-abiversion
+
+	rm -rf .git
+        cp -a ${TMPDIR}/work/x86_64-linux/backporttool-native/${PV}-r0/backporttool-native-${PV}/. .
+
+        oe_runmake KLIB="${STAGING_KERNEL_DIR}" KLIB_BUILD="${STAGING_KERNEL_BUILDDIR}" modules
 }
 
 do_install() {
-	unset CFLAGS CPPFLAGS CXXFLAGS LDFLAGS
-	oe_runmake DEPMOD=echo INSTALL_MOD_PATH="${D}" \
-	           KERNEL_SRC=${STAGING_KERNEL_DIR} \
-	           CC="${KERNEL_CC}" LD="${KERNEL_LD}" \
-	           modules_install
-	rm ${STAGING_KERNEL_DIR}/.config
+	install -d ${D}/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac
+	install -d ${D}/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless/broadcom/brcm80211/brcmutil
+	install -d ${D}/lib/modules/${KERNEL_VERSION}/kernel/compat
+	install -d ${D}/lib/modules/${KERNEL_VERSION}/kernel/net/wireless
+
+	install -m 644 ${S}/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko ${D}/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko
+	install -m 644 ${S}/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko ${D}/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko
+	install -m 644 ${S}/compat/compat.ko ${D}/lib/modules/${KERNEL_VERSION}/kernel/compat/compat.ko
+	install -m 644 ${S}/net/wireless/cfg80211.ko ${D}/lib/modules/${KERNEL_VERSION}/kernel/net/wireless/cfg80211.ko
 }
+
+PACKAGE_ARCH = "${MACHINE_ARCH}"
+
+FILES_${PN} += " \
+	/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \	
+	/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko \
+	/lib/modules/${KERNEL_VERSION}/kernel/compat/compat.ko \
+	/lib/modules/${KERNEL_VERSION}/kernel/net/wireless/cfg80211.ko \
+"
+
+PACKAGES += "FILES-${PN}"
+
+
 
