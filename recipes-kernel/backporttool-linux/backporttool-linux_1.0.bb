@@ -20,19 +20,13 @@ inherit linux-kernel-base kernel-arch
 DEPENDS = " linux-imx"
 DEPENDS += " backporttool-native"
 
-#Added to make it to work for core-image-base
-inherit module-base
-addtask make_scripts after do_patch before do_configure
-do_make_scripts[lockfiles] = "${TMPDIR}/kernel-scripts.lock"
-do_make_scripts[deptask] = "do_populate_sysroot"
-
 S = "${WORKDIR}/backporttool-linux-${PV}"
 B = "${WORKDIR}/backporttool-linux-${PV}/"
 
 #You should set variable CROSS_COMPILE, not a CROSS-COMPILE
 export CROSS_COMPILE = "${TARGET_PREFIX}"
 
-KERNEL_VERSION = "${@base_read_file('${STAGING_KERNEL_BUILDDIR}/kernel-abiversion')}"
+#KERNEL_VERSION = "${@base_read_file('${STAGING_KERNEL_BUILDDIR}/kernel-abiversion')}"
 
 do_compile() {
 	# Linux kernel build system is expected to do the right thing
