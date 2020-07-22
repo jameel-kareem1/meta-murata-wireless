@@ -53,12 +53,20 @@ do_compile () {
         echo "KBUILD_OUTPUT: ${KBUILD_OUTPUT}"
 
 	rm -rf .git 
+	echo "BUILD-DIR: ${STAGING_KERNEL_BUILDDIR}"
+	echo "KERNEL-DIR: ${STAGING_KERNEL_DIR}"
 	cp ${STAGING_KERNEL_BUILDDIR}/.config ${STAGING_KERNEL_DIR}/.config
 	cp ${STAGING_KERNEL_BUILDDIR}/kernel-abiversion ${STAGING_KERNEL_DIR}/kernel-abiversion
 
-        cp -a ${TMPDIR}/work/x86_64-linux/backporttool-native/${PV}-r0/imx-morty-manda_r${PV}/. .
+        cp -Rfp "${TMPDIR}"/work/x86_64-linux/backporttool-native/1.0-r0/imx-zigra-zeus_r1.0/* .
 
-        oe_runmake KLIB="${STAGING_KERNEL_DIR}" KLIB_BUILD="${STAGING_KERNEL_DIR}" defconfig-brcmfmac
+        oe_runmake KLIB="${STAGING_KERNEL_DIR}" KLIB_BUILD="${STAGING_KERNEL_BUILDDIR}" defconfig-brcmfmac
+
+
+#	cp ${STAGING_KERNEL_BUILDDIR}/.config ${STAGING_KERNEL_DIR}/.config
+#	cp ${STAGING_KERNEL_BUILDDIR}/kernel-abiversion ${STAGING_KERNEL_DIR}/kernel-abiversion
+#       cp -a ${TMPDIR}/work/x86_64-linux/backporttool-native/${PV}-r0/imx-morty-manda_r${PV}/. .
+#       oe_runmake KLIB="${STAGING_KERNEL_DIR}" KLIB_BUILD="${STAGING_KERNEL_DIR}" defconfig-brcmfmac
 }
 
 do_install () {
