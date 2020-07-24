@@ -4,16 +4,16 @@ LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://${S}/cyw-bt-patch/LICENCE.cypress;md5=cbc5f665d04f741f1e006d2096236ba7"
 
 SRC_URI = " \
-	git://github.com/murata-wireless/cyw-fmac-fw;protocol=http;branch=gamera;destsuffix=cyw-fmac-fw;name=cyw-fmac-fw \
-	git://github.com/murata-wireless/cyw-fmac-nvram;protocol=http;branch=gamera;destsuffix=cyw-fmac-nvram;name=cyw-fmac-nvram \
+	git://github.com/jameel-kareem/cyw-fmac-fw;protocol=http;branch=zigra;destsuffix=cyw-fmac-fw;name=cyw-fmac-fw \
+	git://github.com/jameel-kareem/cyw-fmac-nvram;protocol=http;branch=zigra;destsuffix=cyw-fmac-nvram;name=cyw-fmac-nvram \
 	git://github.com/murata-wireless/cyw-bt-patch;protocol=http;branch=zeus-gamera;destsuffix=cyw-bt-patch;name=cyw-bt-patch \
 	git://github.com/murata-wireless/cyw-fmac-utils-imx32;protocol=http;branch=gamera;destsuffix=cyw-fmac-utils-imx32;name=cyw-fmac-utils-imx32 \
 	git://github.com/murata-wireless/cyw-fmac-utils-imx64;protocol=http;branch=gamera;destsuffix=cyw-fmac-utils-imx64;name=cyw-fmac-utils-imx64 \
 	file://10-network.rules \
 "
 
-SRCREV_cyw-fmac-fw="88b5e89dbad5c39e86719bcc91d040c2cbb2ee07"
-SRCREV_cyw-fmac-nvram="2b642dc80211819259191b44a02a0bf45e0518c7"
+SRCREV_cyw-fmac-fw="6e2ae75a1d1ee51a98544682981a2eedd6c67e6a"
+SRCREV_cyw-fmac-nvram="fddcfc27e2d5e9ba91c7d2765fc4345093fc20fd"
 SRCREV_cyw-bt-patch="558f98ac67bd944afa003c247643fd47cc2dd3ab"
 SRCREV_cyw-fmac-utils-imx32="b1cbd9170dd96ac73102aeee5d73b11575e1028a"
 SRCREV_cyw-fmac-utils-imx64="6848dc6c805a29ff2a297d99557b8c875342cd57"
@@ -49,8 +49,8 @@ DO_INSTALL_64BIT_BINARIES_mx8 = "yes"
 
 do_install () {
 	echo "Installing: "
-	install -d ${D}/lib/firmware/brcm
-	install -d ${D}/lib/firmware/brcm/murata-master
+	install -d ${D}/lib/firmware/cypress
+	install -d ${D}/lib/firmware/cypress/murata-master
 	install -d ${D}/etc/firmware
 	install -d ${D}/etc/firmware/murata-master
 	install -d ${D}/usr/sbin
@@ -76,29 +76,29 @@ do_install () {
         install -m 444 ${S}//cyw-bt-patch/BCM4356A2_001.003.015.0106.0403.1CX.hcd   ${D}${sysconfdir}/firmware/murata-master/_BCM4356A2_001.003.015.0106.0403.1CX.hcd
 	install -m 444 ${S}//cyw-bt-patch/README_BT_PATCHFILE ${D}${sysconfdir}/firmware/murata-master
 
-#       Copying FW and CLM BLOB files (*.bin, *.clm_blob) to lib/firmware/brcm folder
-	install -m 444 ${S}/cyw-fmac-fw/*.bin ${D}/lib/firmware/brcm
-##	install -m 444 ${S}/cyw-fmac-fw/*.clm_blob ${D}/lib/firmware/brcm
-
+#       Copying FW and CLM BLOB files (*.bin, *.clm_blob) to lib/firmware/cypress folder
+	install -m 444 ${S}/cyw-fmac-fw/*.bin ${D}/lib/firmware/cypress
+##	install -m 444 ${S}/cyw-fmac-fw/*.clm_blob ${D}/lib/firmware/cypress
 
 #       Rename clm blob files accordingly
-	install -m 444 ${S}/cyw-fmac-fw/brcmfmac4354-sdio.1BB.clm_blob ${D}/lib/firmware/brcm/brcmfmac4354-sdio.clm_blob
-	install -m 444 ${S}/cyw-fmac-fw/brcmfmac4356-pcie.1CX.clm_blob ${D}/lib/firmware/brcm/brcmfmac4356-pcie.clm_blob
-	install -m 444 ${S}/cyw-fmac-fw/brcmfmac43012-sdio.1LV.clm_blob ${D}/lib/firmware/brcm/brcmfmac43012-sdio.clm_blob
-	install -m 444 ${S}/cyw-fmac-fw/brcmfmac43430-sdio.1DX.clm_blob ${D}/lib/firmware/brcm/brcmfmac43430-sdio.clm_blob
-	install -m 444 ${S}/cyw-fmac-fw/brcmfmac43455-sdio.1MW.clm_blob ${D}/lib/firmware/brcm/brcmfmac43455-sdio.clm_blob
+	install -m 444 ${S}/cyw-fmac-fw/cyfmac4354-sdio.1BB.clm_blob ${D}/lib/firmware/cypress/cyfmac4354-sdio.clm_blob
+	install -m 444 ${S}/cyw-fmac-fw/cyfmac4356-pcie.1CX.clm_blob ${D}/lib/firmware/cypress/cyfmac4356-pcie.clm_blob
+	install -m 444 ${S}/cyw-fmac-fw/cyfmac43012-sdio.1LV.clm_blob ${D}/lib/firmware/cypress/cyfmac43012-sdio.clm_blob
+	install -m 444 ${S}/cyw-fmac-fw/cyfmac43430-sdio.1DX.clm_blob ${D}/lib/firmware/cypress/cyfmac43430-sdio.clm_blob
+	install -m 444 ${S}/cyw-fmac-fw/cyfmac43455-sdio.1MW.clm_blob ${D}/lib/firmware/cypress/cyfmac43455-sdio.clm_blob
 
-#       Copying NVRAM files (*.txt) to lib/firmware/brcm and lib/firmware/brcm/murata-master
-	install -m 444 ${S}/cyw-fmac-nvram/*.txt ${D}/lib/firmware/brcm/murata-master
-	install -m 444 ${S}/cyw-fmac-nvram/brcmfmac4339-sdio.ZP.txt ${D}/lib/firmware/brcm/brcmfmac4339-sdio.txt
-	install -m 444 ${S}/cyw-fmac-nvram/brcmfmac4354-sdio.1BB.txt ${D}/lib/firmware/brcm/brcmfmac4354-sdio.txt
-	install -m 444 ${S}/cyw-fmac-nvram/brcmfmac4356-pcie.1CX.txt ${D}/lib/firmware/brcm/brcmfmac4356-pcie.txt
-	install -m 444 ${S}/cyw-fmac-nvram/brcmfmac43012-sdio.1LV.txt ${D}/lib/firmware/brcm/brcmfmac43012-sdio.txt
-	install -m 444 ${S}/cyw-fmac-nvram/brcmfmac43340-sdio.1BW.txt ${D}/lib/firmware/brcm/brcmfmac43340-sdio.txt
-	install -m 444 ${S}/cyw-fmac-nvram/brcmfmac43362-sdio.SN8000.txt ${D}/lib/firmware/brcm/brcmfmac43362-sdio.txt
-	install -m 444 ${S}/cyw-fmac-nvram/brcmfmac43430-sdio.1DX.txt ${D}/lib/firmware/brcm/brcmfmac43430-sdio.txt
-	install -m 444 ${S}/cyw-fmac-nvram/brcmfmac43455-sdio.1MW.txt ${D}/lib/firmware/brcm/brcmfmac43455-sdio.txt
-	install -m 444 ${S}/cyw-fmac-nvram/README_NVRAM ${D}/lib/firmware/brcm
+#       Copying NVRAM files (*.txt) to lib/firmware/cypress and lib/firmware/cypress/murata-master
+	install -m 444 ${S}/cyw-fmac-nvram/*.txt ${D}/lib/firmware/cypress/murata-master
+
+	install -m 444 ${S}/cyw-fmac-nvram/cyfmac4339-sdio.ZP.txt ${D}/lib/firmware/cypress/cyfmac4339-sdio.txt
+	install -m 444 ${S}/cyw-fmac-nvram/cyfmac4354-sdio.1BB.txt ${D}/lib/firmware/cypress/cyfmac4354-sdio.txt
+	install -m 444 ${S}/cyw-fmac-nvram/cyfmac4356-pcie.1CX.txt ${D}/lib/firmware/cypress/cyfmac4356-pcie.txt
+	install -m 444 ${S}/cyw-fmac-nvram/cyfmac43012-sdio.1LV.txt ${D}/lib/firmware/cypress/cyfmac43012-sdio.txt
+	install -m 444 ${S}/cyw-fmac-nvram/cyfmac43340-sdio.1BW.txt ${D}/lib/firmware/cypress/cyfmac43340-sdio.txt
+	install -m 444 ${S}/cyw-fmac-nvram/cyfmac43362-sdio.SN8000.txt ${D}/lib/firmware/cypress/cyfmac43362-sdio.txt
+	install -m 444 ${S}/cyw-fmac-nvram/cyfmac43430-sdio.1DX.txt ${D}/lib/firmware/cypress/cyfmac43430-sdio.txt
+	install -m 444 ${S}/cyw-fmac-nvram/cyfmac43455-sdio.1MW.txt ${D}/lib/firmware/cypress/cyfmac43455-sdio.txt
+	install -m 444 ${S}/cyw-fmac-nvram/README_NVRAM ${D}/lib/firmware/cypress
 
 	install -m 444 ${S}/10-network.rules                  ${D}${sysconfdir}/udev/rules.d/10-network.rules
 
