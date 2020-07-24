@@ -32,7 +32,9 @@ B = "${WORKDIR}/backporttool-linux-${PV}/"
 #You should set variable CROSS_COMPILE, not a CROSS-COMPILE
 export CROSS_COMPILE = "${TARGET_PREFIX}"
 
-#KERNEL_VERSION = "${@base_read_file('${STAGING_KERNEL_BUILDDIR}/kernel-abiversion')}"
+KERNEL_VERSION = "${@oe.utils.read_file('${STAGING_KERNEL_BUILDDIR}/kernel-abiversion')}"
+
+
 
 do_compile() {
 	# Linux kernel build system is expected to do the right thing
@@ -44,6 +46,7 @@ do_compile() {
         echo "TEST_TARGET_ARCH:: ${TARGET_ARCH}"
         echo "STAGING_KERNEL_BUILDDIR: ${STAGING_KERNEL_BUILDDIR}"
         echo "TEST_LDFLAGS:: ${LDFLAGS}"
+	echo "KERNEL VERSION: ${KERNEL_VERSION}"
         echo "S DIR:  {S}"
 
 	cp ${STAGING_KERNEL_BUILDDIR}/.config ${STAGING_KERNEL_DIR}/.config
@@ -70,11 +73,28 @@ do_install() {
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
 FILES_${PN} += " \
+	/lib/ \
+  	/lib/modules \
+  	/lib/modules/${KERNEL_VERSION}/kernel \
+  	/lib/modules/${KERNEL_VERSION}/kernel/drivers \
+  	/lib/modules/${KERNEL_VERSION}/kernel/drivers/net \
+  	/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless \
+  	/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless/broadcom \
+  	/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless/broadcom/brcm80211 \
+   	/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac \
 	/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \	
 	/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko \
 	/lib/modules/${KERNEL_VERSION}/kernel/compat/compat.ko \
 	/lib/modules/${KERNEL_VERSION}/kernel/net/wireless/cfg80211.ko \
 "
+
+
+#FILES_${PN} += " \
+#	/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless/broadcom/brcm80211/brcmfmac/brcmfmac.ko \	
+#	/lib/modules/${KERNEL_VERSION}/kernel/drivers/net/wireless/broadcom/brcm80211/brcmutil/brcmutil.ko \
+#	/lib/modules/${KERNEL_VERSION}/kernel/compat/compat.ko \
+#	/lib/modules/${KERNEL_VERSION}/kernel/net/wireless/cfg80211.ko \
+#"
 
 PACKAGES += "FILES-${PN}"
 

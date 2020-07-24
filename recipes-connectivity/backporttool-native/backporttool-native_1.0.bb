@@ -8,6 +8,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 inherit systemd
 inherit native
 
+
 SYSTEMD_AUTO_ENABLE = "disable"
 
 
@@ -32,7 +33,14 @@ SRC_URI[archive99.sha256sum] = "8177f97513213526df2cf6184d8ff986c675afb514d4e68a
 S = "${WORKDIR}/backporttool-native-${PV}"
 B = "${WORKDIR}/backporttool-native-${PV}/"
 
-DEPENDS = "linux-imx"
+DEPENDS = "linux-imx flex-native bison-native apt-native autoconf-archive-native bjam-native \
+	   chrpath-native coreutils-native cracklib-native debianutils-native \
+		dpkg-native dwarfsrcfiles-native gdk-pixbuf-native gptfdisk-native \
+		libcap-ng-native libjpeg-turbo-native libnsl2-native libtirpc-native \
+		lzip-native make-native meson-native ninja-native orc-native patch-native \
+		python-mako-native python3-pycrypto-native python3-pyelftools-native \
+		python-setuptools-native re2c-native tcl-native u-boot-tools-native \
+		xorgproto-native zip-native"
 
 do_configure () {
 	echo "Configuring"
@@ -61,7 +69,6 @@ do_compile () {
         cp -Rfp "${TMPDIR}"/work/x86_64-linux/backporttool-native/1.0-r0/imx-zigra-zeus_r1.0/* .
 
         oe_runmake KLIB="${STAGING_KERNEL_DIR}" KLIB_BUILD="${STAGING_KERNEL_BUILDDIR}" defconfig-brcmfmac
-
 
 #	cp ${STAGING_KERNEL_BUILDDIR}/.config ${STAGING_KERNEL_DIR}/.config
 #	cp ${STAGING_KERNEL_BUILDDIR}/kernel-abiversion ${STAGING_KERNEL_DIR}/kernel-abiversion
