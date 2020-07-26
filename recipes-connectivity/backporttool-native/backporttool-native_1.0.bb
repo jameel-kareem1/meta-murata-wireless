@@ -33,15 +33,8 @@ SRC_URI[archive99.sha256sum] = "8177f97513213526df2cf6184d8ff986c675afb514d4e68a
 S = "${WORKDIR}/backporttool-native-${PV}"
 B = "${WORKDIR}/backporttool-native-${PV}/"
 
-DEPENDS = "virtual/kernel flex-native bison-native apt-native autoconf-archive-native bjam-native \
-	   chrpath-native coreutils-native cracklib-native debianutils-native \
-		dpkg-native dwarfsrcfiles-native gdk-pixbuf-native gptfdisk-native \
-		libcap-ng-native libjpeg-turbo-native libnsl2-native libtirpc-native \
-		lzip-native make-native meson-native ninja-native orc-native patch-native \
-		python-mako-native python3-pycrypto-native python3-pyelftools-native \
-		python-setuptools-native re2c-native tcl-native u-boot-tools-native \
-		xorgproto-native zip-native"
-do_configure[depends] += "virtual/kernel:do_deploy"
+DEPENDS = "virtual/kernel flex-native bison-native "
+
 do_configure () {
 	echo "Configuring"
         echo "KLIB:       ${KLIB}"
