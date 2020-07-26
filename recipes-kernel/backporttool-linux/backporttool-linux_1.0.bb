@@ -13,8 +13,8 @@ SRC_URI += "https://github.com/murata-wireless/meta-murata-wireless/raw/imx-mort
 #SRC_URI += "file://0003-murata-rx-transmit-max-perf.patch;patchdir=${WORKDIR}/imx-morty-manda_r${PV}"
 #SRC_URI += "file://0004-murata-1FD-initialization-fix.patch;patchdir=${WORKDIR}/imx-morty-manda_r${PV}"
 
-SRC_URI[archive1.md5sum] = "1ea88f37a16aa052862c5e85f52cfe44"
-SRC_URI[archive1.sha256sum] = "5455b8861c58211b77ba0b9810944197e43e3e604da1c879841f7a6a76c20ff6"
+SRC_URI[archive1.md5sum] = "5f121c29edb087e7db1999eed1a10d43"
+SRC_URI[archive1.sha256sum] = "52b2158be207d6fb4c14c22a2955c28b6eceb3a5610e689aac25cf2b77fa816d"
 
 
 #LICENSE
