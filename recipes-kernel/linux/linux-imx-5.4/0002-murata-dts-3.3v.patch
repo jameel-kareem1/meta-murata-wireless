@@ -1,8 +1,8 @@
 diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 813456c..d3477aca3 100644
+index 70250bd..9b1be5a 100644
 --- a/arch/arm/boot/dts/Makefile
 +++ b/arch/arm/boot/dts/Makefile
-@@ -443,6 +443,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
+@@ -444,6 +444,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
  	imx6dl-sabresd.dtb \
  	imx6dl-sabresd-ldo.dtb \
  	imx6dl-sabresd-btwifi.dtb \
@@ -10,8 +10,8 @@ index 813456c..d3477aca3 100644
 +	imx6dl-sabresd-btwifi-m2-oob.dtb \
  	imx6dl-sabresd-hdcp.dtb \
  	imx6dl-sabresd-enetirq.dtb \
- 	imx6dl-savageboard.dtb \
-@@ -530,6 +532,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
+ 	imx6dl-sabresd-pcie.dtb \
+@@ -533,6 +535,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
  	imx6q-sabresd.dtb \
  	imx6q-sabresd-ldo.dtb \
  	imx6q-sabresd-btwifi.dtb \
@@ -20,7 +20,7 @@ index 813456c..d3477aca3 100644
  	imx6q-sabresd-hdcp.dtb \
  	imx6q-sabresd-uart.dtb \
  	imx6q-sabresd-enetirq.dtb \
-@@ -564,6 +568,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
+@@ -568,6 +572,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
  	imx6qp-sabresd.dtb \
  	imx6qp-sabresd-ldo.dtb \
  	imx6qp-sabresd-btwifi.dtb \
@@ -29,7 +29,7 @@ index 813456c..d3477aca3 100644
  	imx6qp-sabresd-hdcp.dtb \
  	imx6qp-tx6qp-8037.dtb \
  	imx6qp-tx6qp-8037-mb7.dtb \
-@@ -577,6 +583,7 @@ dtb-$(CONFIG_SOC_IMX6SL) += \
+@@ -581,6 +587,7 @@ dtb-$(CONFIG_SOC_IMX6SL) += \
  	imx6sl-evk-csi.dtb \
  	imx6sl-evk-uart.dtb \
  	imx6sl-evk-btwifi.dtb \
@@ -37,7 +37,7 @@ index 813456c..d3477aca3 100644
  	imx6sl-warp.dtb
  dtb-$(CONFIG_SOC_IMX6SLL) += \
  	imx6sll-evk.dtb \
-@@ -595,6 +602,8 @@ dtb-$(CONFIG_SOC_IMX6SX) += \
+@@ -599,6 +606,8 @@ dtb-$(CONFIG_SOC_IMX6SX) += \
  	imx6sx-sdb-m4.dtb \
  	imx6sx-sdb-mqs.dtb \
  	imx6sx-sdb-btwifi.dtb \
@@ -46,7 +46,7 @@ index 813456c..d3477aca3 100644
  	imx6sx-softing-vining-2000.dtb \
  	imx6sx-udoo-neo-basic.dtb \
  	imx6sx-udoo-neo-extended.dtb \
-@@ -605,6 +614,8 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
+@@ -609,6 +618,8 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
  	imx6ul-14x14-evk-emmc.dtb \
  	imx6ul-14x14-evk-btwifi.dtb \
  	imx6ul-14x14-evk-btwifi-oob.dtb \
@@ -55,7 +55,7 @@ index 813456c..d3477aca3 100644
  	imx6ul-14x14-evk-ecspi-slave.dtb \
  	imx6ul-14x14-evk-ecspi.dtb \
  	imx6ul-14x14-evk-gpmi-weim.dtb \
-@@ -612,6 +623,8 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
+@@ -616,6 +627,8 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
  	imx6ul-9x9-evk-ldo.dtb \
  	imx6ul-9x9-evk-btwifi.dtb \
  	imx6ul-9x9-evk-btwifi-oob.dtb \
@@ -64,7 +64,7 @@ index 813456c..d3477aca3 100644
  	imx6ul-ccimx6ulsbcexpress.dtb \
  	imx6ul-ccimx6ulsbcpro.dtb \
  	imx6ul-geam.dtb \
-@@ -631,11 +644,15 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
+@@ -635,11 +648,15 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
  	imx6ull-14x14-evk-emmc.dtb \
  	imx6ull-14x14-evk-btwifi.dtb \
  	imx6ull-14x14-evk-btwifi-oob.dtb \
