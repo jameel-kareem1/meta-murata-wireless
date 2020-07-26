@@ -18,7 +18,7 @@ EXTRA_OEMAKE = "KLIB_BUILD=${STAGING_KERNEL_DIR} KLIB=${D} DESTDIR=${D}"
 
 DEPENDS += "virtual/kernel bison-native flex-native"
 inherit module-base
-addtask make_scripts after do_patch before do_configure
+#addtask make_scripts after do_patch before do_configure
 #do_make_scripts[lockfiles] = "${TMPDIR}/kernel-scripts.lock"
 #do_make_scripts[deptask] = "do_populate_sysroot"
 
