@@ -1,5 +1,5 @@
-diff --git a/drivers/mmc/core/core.c b/drivers/mmc/core/core.c
-index 1e12131..52e99de 100644
+git diff --git a/drivers/mmc/core/core.c b/drivers/mmc/core/core.c
+index 9533dba..cf193eb 100644
 --- a/drivers/mmc/core/core.c
 +++ b/drivers/mmc/core/core.c
 @@ -1171,7 +1171,13 @@ int mmc_set_signal_voltage(struct mmc_host *host, int signal_voltage)
@@ -18,7 +18,7 @@ index 1e12131..52e99de 100644
  	else if (!mmc_set_signal_voltage(host, MMC_SIGNAL_VOLTAGE_180))
  		dev_dbg(mmc_dev(host), "Initial signal voltage of 1.8v\n");
 diff --git a/drivers/mmc/core/sdio.c b/drivers/mmc/core/sdio.c
-index 26cabd5..3bfc801a 100644
+index ebb387a..d047140 100644
 --- a/drivers/mmc/core/sdio.c
 +++ b/drivers/mmc/core/sdio.c
 @@ -644,7 +644,16 @@ static int mmc_sdio_init_card(struct mmc_host *host, u32 ocr,
@@ -39,8 +39,9 @@ index 26cabd5..3bfc801a 100644
  		if (err == -EAGAIN) {
  			mmc_sdio_resend_if_cond(host, card);
  			retries--;
-@@ -1207,4 +1216,3 @@ int mmc_attach_sdio(struct mmc_host *host)
+@@ -1233,4 +1242,3 @@ int mmc_attach_sdio(struct mmc_host *host)
  
  	return err;
  }
 -
+
