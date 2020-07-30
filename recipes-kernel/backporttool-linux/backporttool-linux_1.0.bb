@@ -9,7 +9,11 @@ LICENSE = "GPLv2"
 
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
-SRC_URI =  "git://github.com/jameel-kareem1/cyw-fmac;protocol=http;branch=imx-zeus-zigra"
+SRC_URI =  " \
+    git://github.com/jameel-kareem1/cyw-fmac;protocol=http;branch=imx-zeus-zigra \
+    file://0001-kernel_change_for_fmac_log_string.patch;apply=yes \
+    file://0002-enable_brcmf_sdio_wq_highpri.patch;apply=yes \    
+"
 SRCREV = "da36593ae4d920ff21c9e76d55890f28056d187a"
 S = "${WORKDIR}/git"
 
