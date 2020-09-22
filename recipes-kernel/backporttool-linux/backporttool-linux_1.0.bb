@@ -1,4 +1,3 @@
-# Copyright (C) 2017 Khem Raj <raj.khem@gmail.com>
 # Released under the MIT license (see COPYING.MIT for the terms)
 
 
@@ -10,11 +9,13 @@ LICENSE = "GPLv2"
 
 LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
 SRC_URI =  " \
-    git://github.com/jameel-kareem1/cyw-fmac;protocol=http;branch=imx-zeus-zigra \
+    git://github.com/murata-wireless/cyw-fmac;protocol=http;branch=imx-zeus-zigra \
     file://0001-kernel_change_for_fmac_log_string.patch;apply=yes \
-    file://0002-enable_brcmf_sdio_wq_highpri.patch;apply=yes \    
+    file://0002-enable_brcmf_sdio_wq_highpri.patch;apply=yes \
+    file://0003-brcmfmac-req-fw-direct-war.patch;apply=yes \
+    file://0004-makefile-yacc-flex-update.patch;apply=yes \
 "
-SRCREV = "da36593ae4d920ff21c9e76d55890f28056d187a"
+SRCREV = "f734f2d1bdf1ff401e561093201c3b78ebad10c9"
 S = "${WORKDIR}/git"
 
 
@@ -27,6 +28,7 @@ inherit module-base
 #do_make_scripts[deptask] = "do_populate_sysroot"
 
 do_configure_prepend() {
+	chmod -R 777 ./
 	cp ${STAGING_KERNEL_BUILDDIR}/.config ${STAGING_KERNEL_DIR}/.config
 	CC=${BUILD_CC} oe_runmake defconfig-brcmfmac
 }
