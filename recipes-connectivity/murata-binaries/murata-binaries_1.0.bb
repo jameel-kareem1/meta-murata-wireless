@@ -127,7 +127,7 @@ do_install () {
     	install -m 0644 ${S}/WlanCalData_ext_DB_W8997_1YM_ES2_Rev_C.conf ${D}/lib/firmware/nxp
 
 #       Copying wl tool binary to /usr/sbin
-	if [ ${DO_INSTALL_64BIT_BINARIES} = "yes" ]; then
+	if [ ${TARGET_ARCH} = "aarch64" ]; then
 		install -m 755 ${S}/cyw-fmac-utils-imx64/wl ${D}/usr/sbin/wl
 	else
 		install -m 755 ${S}/cyw-fmac-utils-imx32/wl ${D}/usr/sbin/wl
@@ -147,38 +147,7 @@ do_install () {
 
 #	Based on MACHINE type
 	echo "DEBUG:: MACHINE TYPE :: ${MACHINE}"
-	case ${MACHINE} in
-	  imx6dlea-com)
-		install -m 755 ${S}/switch_module_imx6dlea-com.sh ${D}/usr/sbin/switch_module.sh
-		;;
-	  imx6qea-com)
-		install -m 755 ${S}/switch_module_imx6qea-com.sh ${D}/usr/sbin/switch_module.sh
-		;;
-	  imx6sxea-com)
-		install -m 755 ${S}/switch_module_imx6sxea-com.sh ${D}/usr/sbin/switch_module.sh
-		;;
- 	  imx6ulea-com)
-		install -m 755 ${S}/switch_module_imx6ulea-com.sh ${D}/usr/sbin/switch_module.sh
-		;;
-	  imx7dea-com)
-		install -m 755 ${S}/switch_module_imx7dea-com.sh ${D}/usr/sbin/switch_module.sh
-		;;
-	  imx7dea-ucom)
-		install -m 755 ${S}/switch_module_imx7dea-ucom.sh ${D}/usr/sbin/switch_module.sh
-		;;
-	  imx7ulpea-ucom)
-		install -m 755 ${S}/switch_module_imx7ulpea-ucom.sh ${D}/usr/sbin/switch_module.sh
-		;;
-	  imx8mmea-ucom)
-		install -m 755 ${S}/switch_module_imx8mmea-ucom.sh ${D}/usr/sbin/switch_module.sh
-		;;
-	  imx8mnea-ucom)
-		install -m 755 ${S}/switch_module_imx8mnea-ucom.sh ${D}/usr/sbin/switch_module.sh
-		;;
-	  imx8mqea-com)
-		install -m 755 ${S}/switch_module_imx8mqea-com.sh ${D}/usr/sbin/switch_module.sh
-		;;
-	esac
+	install -m 755 ${S}/switch_module_imx8mmea-ucom.sh ${D}/usr/sbin/switch_module.sh
 
 }
 
