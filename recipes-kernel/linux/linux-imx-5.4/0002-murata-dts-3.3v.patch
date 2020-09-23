@@ -1,5 +1,5 @@
 diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
-index 70250bd..9b1be5a 100644
+index 70250bd..29a7876 100644
 --- a/arch/arm/boot/dts/Makefile
 +++ b/arch/arm/boot/dts/Makefile
 @@ -444,6 +444,8 @@ dtb-$(CONFIG_SOC_IMX6Q) += \
@@ -55,16 +55,7 @@ index 70250bd..9b1be5a 100644
  	imx6ul-14x14-evk-ecspi-slave.dtb \
  	imx6ul-14x14-evk-ecspi.dtb \
  	imx6ul-14x14-evk-gpmi-weim.dtb \
-@@ -616,6 +627,8 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
- 	imx6ul-9x9-evk-ldo.dtb \
- 	imx6ul-9x9-evk-btwifi.dtb \
- 	imx6ul-9x9-evk-btwifi-oob.dtb \
-+	imx6ul-9x9-evk-btwifi-m2.dtb \
-+	imx6ul-9x9-evk-btwifi-m2-oob.dtb \
- 	imx6ul-ccimx6ulsbcexpress.dtb \
- 	imx6ul-ccimx6ulsbcpro.dtb \
- 	imx6ul-geam.dtb \
-@@ -635,11 +648,15 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
+@@ -635,6 +646,8 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
  	imx6ull-14x14-evk-emmc.dtb \
  	imx6ull-14x14-evk-btwifi.dtb \
  	imx6ull-14x14-evk-btwifi-oob.dtb \
@@ -73,13 +64,6 @@ index 70250bd..9b1be5a 100644
  	imx6ull-14x14-evk-gpmi-weim.dtb \
  	imx6ull-9x9-evk.dtb \
  	imx6ull-9x9-evk-ldo.dtb \
- 	imx6ull-9x9-evk-btwifi.dtb \
- 	imx6ull-9x9-evk-btwifi-oob.dtb \
-+	imx6ull-9x9-evk-btwifi-m2.dtb \
-+	imx6ull-9x9-evk-btwifi-m2-oob.dtb \
- 	imx6ull-colibri-eval-v3.dtb \
- 	imx6ull-colibri-wifi-eval-v3.dtb \
- 	imx6ull-phytec-segin-ff-rdk-nand.dtb \
 diff --git a/arch/arm/boot/dts/imx6dl-sabresd-btwifi-m2-oob.dts b/arch/arm/boot/dts/imx6dl-sabresd-btwifi-m2-oob.dts
 new file mode 100644
 index 00000000..602f401
@@ -449,37 +433,6 @@ index 9c8e1c9..e8999a5 100644
  		ethphy1: ethernet-phy@1 {
  			reg = <1>;
  			micrel,led-mode = <1>;
-diff --git a/arch/arm/boot/dts/imx6ul-9x9-evk-btwifi-m2-oob.dts b/arch/arm/boot/dts/imx6ul-9x9-evk-btwifi-m2-oob.dts
-new file mode 100644
-index 00000000..ebda92a
---- /dev/null
-+++ b/arch/arm/boot/dts/imx6ul-9x9-evk-btwifi-m2-oob.dts
-@@ -0,0 +1,10 @@
-+/*
-+ * Copyright (C) 2017 NXP
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License version 2 as
-+ * published by the Free Software Foundation.
-+ */
-+
-+#include "imx6ul-9x9-evk-btwifi.dts"
-+#include "imx6ul-evk-btwifi-m2-oob.dtsi"
-diff --git a/arch/arm/boot/dts/imx6ul-9x9-evk-btwifi-m2.dts b/arch/arm/boot/dts/imx6ul-9x9-evk-btwifi-m2.dts
-new file mode 100644
-index 00000000..6fcc0cd
---- /dev/null
-+++ b/arch/arm/boot/dts/imx6ul-9x9-evk-btwifi-m2.dts
-@@ -0,0 +1,9 @@
-+/*
-+ * Copyright (C) 2015 Freescale Semiconductor, Inc.
-+ *
-+ * This program is free software; you can redistribute it and/or modify
-+ * it under the terms of the GNU General Public License version 2 as
-+ * published by the Free Software Foundation.
-+ */
-+
-+#include "imx6ul-9x9-evk-btwifi.dts"
 diff --git a/arch/arm/boot/dts/imx6ul-evk-btwifi-m2-oob.dtsi b/arch/arm/boot/dts/imx6ul-evk-btwifi-m2-oob.dtsi
 new file mode 100644
 index 00000000..951bce3
@@ -517,10 +470,10 @@ index 00000000..951bce3
 +	interrupt-names = "host-wake";
 +};
 diff --git a/arch/arm/boot/dts/imx6ul-evk-btwifi.dtsi b/arch/arm/boot/dts/imx6ul-evk-btwifi.dtsi
-index b3dfefe..20a4b55 100644
+index b3dfefe..a9ccd29 100644
 --- a/arch/arm/boot/dts/imx6ul-evk-btwifi.dtsi
 +++ b/arch/arm/boot/dts/imx6ul-evk-btwifi.dtsi
-@@ -22,8 +22,6 @@
+@@ -22,17 +22,16 @@
  	};
  
  	usdhc1_pwrseq: usdhc1_pwrseq {
@@ -528,8 +481,10 @@ index b3dfefe..20a4b55 100644
 -		pinctrl-0 = <&pinctrl_wifi>;
  		compatible = "mmc-pwrseq-simple";
  		reset-gpios = <&gpio5 1 GPIO_ACTIVE_LOW>;
++		post-power-on-delay-ms = <120>;  /* Murata -- add delay before accessing SDIO bus */
  	};
-@@ -32,7 +30,7 @@
+ };
+ 
  &iomuxc {
  	pinctrl_wifi: wifigrp {
  		fsl,pins = <
@@ -538,7 +493,7 @@ index b3dfefe..20a4b55 100644
  		>;
  	};
  };
-@@ -42,21 +40,19 @@
+@@ -42,21 +41,19 @@
  };
  
  &uart2 {
@@ -577,18 +532,3 @@ index 00000000..ad0c048
 +++ b/arch/arm/boot/dts/imx6ull-14x14-evk-btwifi-m2.dts
 @@ -0,0 +1 @@
 +#include "imx6ull-14x14-evk-btwifi.dts"
-diff --git a/arch/arm/boot/dts/imx6ull-9x9-evk-btwifi-m2-oob.dts b/arch/arm/boot/dts/imx6ull-9x9-evk-btwifi-m2-oob.dts
-new file mode 100644
-index 00000000..5f77946
---- /dev/null
-+++ b/arch/arm/boot/dts/imx6ull-9x9-evk-btwifi-m2-oob.dts
-@@ -0,0 +1,2 @@
-+#include "imx6ull-9x9-evk-btwifi-m2.dts"
-+#include "imx6ul-evk-btwifi-m2-oob.dtsi"
-diff --git a/arch/arm/boot/dts/imx6ull-9x9-evk-btwifi-m2.dts b/arch/arm/boot/dts/imx6ull-9x9-evk-btwifi-m2.dts
-new file mode 100644
-index 00000000..21fe495
---- /dev/null
-+++ b/arch/arm/boot/dts/imx6ull-9x9-evk-btwifi-m2.dts
-@@ -0,0 +1 @@
-+#include "imx6ull-9x9-evk-btwifi.dts"
