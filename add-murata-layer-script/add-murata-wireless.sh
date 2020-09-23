@@ -12,7 +12,7 @@ cp ./sources/meta-murata-wireless/freescale/imx6dlsabresd.conf ./sources/meta-im
 
 echo "INTERNAL_MIRROR = \"http://localhost\"" >> conf/local.conf
 echo "CORE_IMAGE_EXTRA_INSTALL += \" hostap-conf hostap-utils hostapd murata-binaries iperf3 backporttool-linux kernel-modules-pcie8997 linux-firmware-pcie8997 kernel-modules-sdio8997 \"" >> conf/local.conf
-echo "CORE_IMAGE_EXTRA_INSTALL += \" bluez5 bluez5-noinst-tools bluez5-obex openobex obexftp glibc-gconv-utf-16 glibc-utils cyw-supplicant \"" >> conf/local.conf
+echo "CORE_IMAGE_EXTRA_INSTALL += \" bluez5 bluez5-noinst-tools bluez5-obex openobex obexftp glibc-gconv-utf-16 glibc-utils cyw-supplicant python3\"" >> conf/local.conf
 echo "BBLAYERS += \" \${BSPDIR}/sources/meta-murata-wireless \"" >> conf/bblayers.conf
 echo ""
 echo "CORRECTION: Murata modified the following files"
