@@ -16,8 +16,8 @@ SRC_URI = " \
 	file://switch_module_imx6ull14x14evk.sh \
 	file://switch_module_imx6ulevk.sh \
 	file://switch_module_imx6sxsabresd.sh \
-	file://switch_module_imx6ulea-com.sh \
-	file://switch_module_imx7dea-com.sh \
+	file://switch_module_imx6qsabresd.sh \
+	file://switch_module_imx6dlsabresd.sh \
 	file://switch_module_imx7dea-ucom.sh \
 	file://switch_module_imx7ulpea-ucom.sh \
 	file://switch_module_imx8mmea-ucom.sh \
@@ -160,11 +160,11 @@ do_install () {
 	  imx6sxsabresd)
 		install -m 755 ${S}/switch_module_imx6sxsabresd.sh ${D}/usr/sbin/switch_module.sh
 		;;
- 	  imx6ulea-com)
-		install -m 755 ${S}/switch_module_imx6ulea-com.sh ${D}/usr/sbin/switch_module.sh
+ 	  imx6qsabresd)
+		install -m 755 ${S}/switch_module_imx6qsabresd.sh ${D}/usr/sbin/switch_module.sh
 		;;
-	  imx7dea-com)
-		install -m 755 ${S}/switch_module_imx7dea-com.sh ${D}/usr/sbin/switch_module.sh
+	  imx6dlsabresd)
+		install -m 755 ${S}/switch_module_imx6dlsabresd.sh ${D}/usr/sbin/switch_module.sh
 		;;
 	  imx7dea-ucom)
 		install -m 755 ${S}/switch_module_imx7dea-ucom.sh ${D}/usr/sbin/switch_module.sh
