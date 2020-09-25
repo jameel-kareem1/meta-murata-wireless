@@ -12,9 +12,10 @@ SRC_URI = " \
 	git://github.com/murata-wireless/cyw-fmac-utils-imx64;protocol=http;branch=zigra;destsuffix=cyw-fmac-utils-imx64;name=cyw-fmac-utils-imx64 \
 	git://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git;protocol=http;branch=master \
 	file://WlanCalData_ext_DB_W8997_1YM_ES2_Rev_C.conf \
-	file://switch_module_imx6dlea-com.sh \
-	file://switch_module_imx6qea-com.sh \
-	file://switch_module_imx6sxea-com.sh \
+	file://fw_unlock_mmc.sh \
+	file://switch_module_imx6ull14x14evk.sh \
+	file://switch_module_imx6ulevk.sh \
+	file://switch_module_imx6sxsabresd.sh \
 	file://switch_module_imx6ulea-com.sh \
 	file://switch_module_imx7dea-com.sh \
 	file://switch_module_imx7dea-ucom.sh \
@@ -126,7 +127,7 @@ do_install () {
 	install -d ${D}/lib/firmware/nxp
     	install -m 0644 ${S}/WlanCalData_ext_DB_W8997_1YM_ES2_Rev_C.conf ${D}/lib/firmware/nxp
 
-#       Copying wl tool binary to /usr/sbin
+#       Copying wl tool binary based on 32-bit/64-bit arch to /usr/sbin
 	if [ ${TARGET_ARCH} = "aarch64" ]; then
 		install -m 755 ${S}/cyw-fmac-utils-imx64/wl ${D}/usr/sbin/wl
 	else
@@ -145,10 +146,42 @@ do_install () {
 	install -m 0644 ${S}/imx-firmware/nxp/FwImage_8997/helper_uart_3000000.bin ${D}/lib/firmware/nxp
 	install -m 0644 ${S}/imx-firmware/nxp/FwImage_8997/uart8997_bt_v4.bin ${D}/lib/firmware/nxp
 
+	install -Dm 0644 ${S}/fw_unlock_mmc.sh  ${D}${sysconfdir}/profile.d/fw_unlock_mmc.sh
+
 #	Based on MACHINE type
 	echo "DEBUG:: MACHINE TYPE :: ${MACHINE}"
-	install -m 755 ${S}/switch_module_imx8mmea-ucom.sh ${D}/usr/sbin/switch_module.sh
-
+	case ${MACHINE} in
+	  imx6ull14x14evk)
+		install -m 755 ${S}/switch_module_imx6ull14x14evk.sh ${D}/usr/sbin/switch_module.sh
+		;;
+	  imx6ulevk)
+		install -m 755 ${S}/switch_module_imx6ulevk.sh ${D}/usr/sbin/switch_module.sh
+		;;
+	  imx6sxsabresd)
+		install -m 755 ${S}/switch_module_imx6sxsabresd.sh ${D}/usr/sbin/switch_module.sh
+		;;
+ 	  imx6ulea-com)
+		install -m 755 ${S}/switch_module_imx6ulea-com.sh ${D}/usr/sbin/switch_module.sh
+		;;
+	  imx7dea-com)
+		install -m 755 ${S}/switch_module_imx7dea-com.sh ${D}/usr/sbin/switch_module.sh
+		;;
+	  imx7dea-ucom)
+		install -m 755 ${S}/switch_module_imx7dea-ucom.sh ${D}/usr/sbin/switch_module.sh
+		;;
+	  imx7ulpea-ucom)
+		install -m 755 ${S}/switch_module_imx7ulpea-ucom.sh ${D}/usr/sbin/switch_module.sh
+		;;
+	  imx8mmea-ucom)
+		install -m 755 ${S}/switch_module_imx8mmea-ucom.sh ${D}/usr/sbin/switch_module.sh
+		;;
+	  imx8mnea-ucom)
+		install -m 755 ${S}/switch_module_imx8mnea-ucom.sh ${D}/usr/sbin/switch_module.sh
+		;;
+	  imx8mqea-com)
+		install -m 755 ${S}/switch_module_imx8mqea-com.sh ${D}/usr/sbin/switch_module.sh
+		;;
+	esac
 }
 
 PACKAGES =+ "${PN}-mfgtest"
