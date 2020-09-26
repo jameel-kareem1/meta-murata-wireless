@@ -31,7 +31,7 @@ SRCREV_imx-firmware = "685ace656284167376241c804827f046b984ce25"
 
 
 SRCREV_cyw-fmac-fw="52174a18134c7ef4a674ecd9fb68fc6e2bced969"
-SRCREV_cyw-fmac-nvram="c75ea2d41e39e0d6cf6b2ae7e65e81c57bf16670"
+SRCREV_cyw-fmac-nvram="45fe43ad51ad47a0c57ad307db3e87da766bf61e"
 SRCREV_cyw-bt-patch="c5f1b13697d4ac8eec2cb6f21636085fbb55acd1"
 SRCREV_cyw-fmac-utils-imx32="864ccb4529dc02d28d15fa2ace594fa7023e78d7"
 SRCREV_cyw-fmac-utils-imx64="ae90650692a93c87b4c38e09780987be101359a8"
