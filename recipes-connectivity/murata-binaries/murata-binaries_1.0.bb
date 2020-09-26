@@ -18,11 +18,10 @@ SRC_URI = " \
 	file://switch_module_imx6sxsabresd.sh \
 	file://switch_module_imx6qsabresd.sh \
 	file://switch_module_imx6dlsabresd.sh \
-	file://switch_module_imx7dea-ucom.sh \
-	file://switch_module_imx7ulpea-ucom.sh \
-	file://switch_module_imx8mmea-ucom.sh \
-	file://switch_module_imx8mnea-ucom.sh \
-	file://switch_module_imx8mqea-com.sh \
+	file://switch_module_imx8mmevk.sh \
+	file://switch_module_imx8mnevk.sh \
+	file://switch_module_imx8mqevk.sh \
+	file://switch_module.sh \
 "
 SRC_URI += " \
            ${IMX_FIRMWARE_SRC};branch=master;destsuffix=imx-firmware;name=imx-firmware \
@@ -166,20 +165,17 @@ do_install () {
 	  imx6dlsabresd)
 		install -m 755 ${S}/switch_module_imx6dlsabresd.sh ${D}/usr/sbin/switch_module.sh
 		;;
-	  imx7dea-ucom)
-		install -m 755 ${S}/switch_module_imx7dea-ucom.sh ${D}/usr/sbin/switch_module.sh
+	  imx8mmevk)
+		install -m 755 ${S}/switch_module_imx8mmevk.sh ${D}/usr/sbin/switch_module.sh
 		;;
-	  imx7ulpea-ucom)
-		install -m 755 ${S}/switch_module_imx7ulpea-ucom.sh ${D}/usr/sbin/switch_module.sh
+	  imx8mnevk)
+		install -m 755 ${S}/switch_module_imx8mnevk.sh ${D}/usr/sbin/switch_module.sh
 		;;
-	  imx8mmea-ucom)
-		install -m 755 ${S}/switch_module_imx8mmea-ucom.sh ${D}/usr/sbin/switch_module.sh
+	  imx8mqevk)
+		install -m 755 ${S}/switch_module_imx8mqevk.sh ${D}/usr/sbin/switch_module.sh
 		;;
-	  imx8mnea-ucom)
-		install -m 755 ${S}/switch_module_imx8mnea-ucom.sh ${D}/usr/sbin/switch_module.sh
-		;;
-	  imx8mqea-com)
-		install -m 755 ${S}/switch_module_imx8mqea-com.sh ${D}/usr/sbin/switch_module.sh
+	  imx7dsabresd|imx7ulpevk|imx6qpsabresd|imx6slevk|imx8mmddr4evk)
+		install -m 755 ${S}/switch_module.sh ${D}/usr/sbin/switch_module.sh
 		;;
 	esac
 }
