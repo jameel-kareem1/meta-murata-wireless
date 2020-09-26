@@ -1,8 +1,7 @@
-cp ./sources/meta-murata-wireless/freescale/imx6ulevk.conf ./sources/meta-imx/meta-bsp/conf/machine/
+cp ./sources/meta-murata-wireless/freescale/imx6ulevk.conf ./sources/meta-freescale/conf/machine/
 cp ./sources/meta-murata-wireless/freescale/imx6ull14x14evk.conf ./sources/meta-imx/meta-bsp/conf/machine/
-cp ./sources/meta-murata-wireless/freescale/imx6ull9x9evk.conf ./sources/meta-imx/meta-bsp/conf/machine/
-cp ./sources/meta-murata-wireless/freescale/imx6slevk.conf ./sources/meta-imx/meta-bsp/conf/machine/
-cp ./sources/meta-murata-wireless/freescale/imx6sxsabresd.conf ./sources/meta-imx/meta-bsp/conf/machine/
+cp ./sources/meta-murata-wireless/freescale/imx6slevk.conf ./sources/meta-freescale/conf/machine/
+cp ./sources/meta-murata-wireless/freescale/imx6sxsabresd.conf ./sources/meta-freescale/conf/machine/
 cp ./sources/meta-murata-wireless/freescale/imx6qsabresd.conf ./sources/meta-imx/meta-bsp/conf/machine/
 cp ./sources/meta-murata-wireless/freescale/imx6qpsabresd.conf ./sources/meta-imx/meta-bsp/conf/machine/
 cp ./sources/meta-murata-wireless/freescale/imx6dlsabresd.conf ./sources/meta-imx/meta-bsp/conf/machine/
@@ -19,6 +18,12 @@ echo "CORRECTION: Murata modified the following files"
 echo "  - bblayers.conf present in <BUILD_DIR>/conf"
 echo "  - local.conf present in <BUILD_DIR>/conf"
 echo "  - imx6ulevk.conf present in sources/meta-freescale/conf/machine"
+echo "  - imx6ull14x14evk.conf present in sources/meta-imx/meta-bsp/conf/machine"
+echo "  - imx6slevk.conf ./sources/meta-freescale/conf/machine"
+echo "  - imx6sxsabresd.conf ./sources/meta-freescale/conf/machine"
+echo "  - imx6qsabresd.conf ./sources/meta-imx/meta-bsp/conf/machine"
+echo "  - imx6qpsabresd.conf ./sources/meta-imx/meta-bsp/conf/machine"
+echo "  - imx6dlsabresd.conf ./sources/meta-imx/meta-bsp/conf/machine"
 echo ""
 echo "Murata-Wireless setup complete. Create an image with:"
 echo "    $ bitbake fsl-image-validation-imx"
